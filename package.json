@@ -2,8 +2,10 @@
   "name": "atcrypto",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "type": "commonjs",
   "scripts": {
+    "build": "babel src -d dist",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -15,5 +17,13 @@
   "bugs": {
     "url": "https://github.com/Volentix/Atcrypto-SDK-for-Javascript/issues"
   },
-  "homepage": "https://github.com/Volentix/Atcrypto-SDK-for-Javascript#readme"
+  "homepage": "https://github.com/Volentix/Atcrypto-SDK-for-Javascript#readme",
+  "dependencies": {
+    "axios": "^0.27.2"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.17.10",
+    "@babel/core": "^7.18.2",
+    "@babel/preset-env": "^7.18.2"
+  }
 }
