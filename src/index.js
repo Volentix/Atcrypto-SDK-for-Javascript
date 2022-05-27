@@ -23,14 +23,13 @@ class ATCryptoConfig {
 }
 
 
-module.exports= class ATCrypto {
+export class ATCrypto {
     constructor() {
         console.log("hello")
     }
 
     async history(chain, key, token, data = null){
-        // console.log("Hello")
         const adapter=adapterFactory(chain)
-        adapter.history()
+        return adapter.history()
     }
 }
