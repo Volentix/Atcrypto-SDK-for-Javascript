@@ -1,8 +1,6 @@
 import {BaseAdapter} from "../base";
+import {EthereumAdapter} from "../ethereum";
 
-export class BinanceSmartChainAdapter extends BaseAdapter{
-    async history() {
-        console.log("Binance Smart Chain Adapter History")
+export class BinanceSmartChainAdapter extends EthereumAdapter{
 
-    }
 }

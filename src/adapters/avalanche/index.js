@@ -1,7 +1,6 @@
 import {BaseAdapter} from "../base";
+import {EthereumAdapter} from "../ethereum";
 
-export class AvalancheAdapter extends BaseAdapter{
-    async history(){
-        console.log("Avalanche Adapter History")
-    }
+export class AvalancheAdapter extends EthereumAdapter{
+
 }

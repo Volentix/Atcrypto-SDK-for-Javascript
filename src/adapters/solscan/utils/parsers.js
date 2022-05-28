@@ -17,4 +17,5 @@ export function parseHistoryTransaction(item, token, key) {
     transaction.direction = getTransactionDirection(item.signer[0], item.parsedInstruction[0].programId, key)
     transaction.dateFormatted = date.toISOString().split('T')[0]
     transaction.amountFriendly = parseFloat(Math.abs(transaction.amount)).toFixed(6)
+    return transaction
 }

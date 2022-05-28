@@ -19,7 +19,9 @@
   },
   "homepage": "https://github.com/Volentix/Atcrypto-SDK-for-Javascript#readme",
   "dependencies": {
-    "axios": "^0.27.2"
+    "axios": "^0.27.2",
+    "luxon": "^2.4.0",
+    "web3": "^1.7.3"
   },
   "devDependencies": {
     "@babel/cli": "^7.17.10",

@@ -1,7 +1,6 @@
 import {BaseAdapter} from "../base";
+import {EthereumAdapter} from "../ethereum";
 
-export class PolygonAdapter extends BaseAdapter{
-    async history(){
-        console.log("Polygon Adapter History")
-    }
+export class PolygonAdapter extends EthereumAdapter{
+
 }

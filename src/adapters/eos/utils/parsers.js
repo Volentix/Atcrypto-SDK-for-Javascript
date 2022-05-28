@@ -2,11 +2,11 @@ import {getTransactionDirection} from "../../../utils";
 
 export function parseHistoryTransaction(item,token,key){
     // //console.log('split', a.action_trace.act.name === 'transfer' ? a.action_trace.act.data.quantity.toString().split(' ')[1].toLowerCase() : 'not transfer')
+    let transaction = {}
     if (token === 'eos' && (
         item.action_trace.act.name === 'transfer' &&
         item.action_trace.receiver === key && typeof item.action_trace.act.data.from !== 'undefined' && typeof item.action_trace.act.data.to !== 'undefined')) {
         // //console.log('walletlib history actions', a)
-
         let amount = ''
         switch (item.action_trace.act.name) {
             case 'transfer':
@@ -20,7 +20,7 @@ export function parseHistoryTransaction(item,token,key){
                 break
         }
 
-        let transaction = {}
+
 
         let date = new Date(item.block_time)
         transaction.timeStamp = date.getTime() / 1000
@@ -31,13 +31,14 @@ export function parseHistoryTransaction(item,token,key){
         transaction.explorerLink = 'https://bloks.io/transaction/' + transaction.hash
         transaction.from = transaction.friendlyFrom = item.action_trace.act.data.from
         transaction.time = date.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
-        transaction.image = self.getTokenImage(amount.split(' ')[1])
+        transaction.image = "" //self.getTokenImage(amount.split(' ')[1]) //todo replace it to different structure by removing store of vuejs
         transaction.amount = amount.split(' ')[0]
         transaction.memo = item.action_trace.act.data.memo
         transaction.symbol = amount.split(' ')[1]
         transaction.direction = getTransactionDirection(transaction.from, transaction.to, key)
         transaction.dateFormatted = date.toISOString().split('T')[0]
         transaction.amountFriendly = parseFloat(Math.abs(transaction.amount)).toFixed(6)
-        return transaction
+
     }
+    return transaction
 }
