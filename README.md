@@ -23,18 +23,17 @@ this class contains all of configs that are required currently from `store` or f
 
     {
 	    cache,  
-	    chainId,
-        eosHistoryApi,  
-        demuxApi,  
-        coinSwitvhApiKey,  
-        eosTransactionExplorer,  
-        ethTransactionExplorer,  
-        evmTokens={},  
-        evms=[],  
-        coins=[],
-        tokens=[]
+	    chainId,  
+		eosHistoryApi,  
+		demuxApi,  
+		coinSwitvhApiKey,  
+		eosTransactionExplorer,  
+		ethTransactionExplorer,  
+		evmTokens={},  
+		evms=[],  
+		coins=[],  
+		tokens=[]
 	}
-
 in current lib class these values maps to
 | ATCryptoConfig config parameter | current value in verto |
 |--|--|
@@ -48,5 +47,14 @@ in current lib class these values maps to
 | evmTokens | store.state.tokens.evmTokens |
 | evms | refer to array of evms that we have in constructor of of `Lib` class you can pass them as array |
 | coins | store.state.settings.coins.godex.concat(store.state.settings.coins.oneinch).concat(store.state.settings.coins.defibox) |
-| tokens |  |
+| tokens | store.state.wallets.tokens |
+
+### How to use SDK Instance
+currently only history method is supported and and use can use like this
+
+    const  atcrypto=require("atcrypto")
+    ....
+    const  atcryptoInstance = new  atcrypto.ATCrypto(atcryptoConfig)
+    atcryptoInstance.history(chain, key, token, data=null)
+
 
