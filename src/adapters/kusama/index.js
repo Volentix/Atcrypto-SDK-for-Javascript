@@ -3,7 +3,7 @@ import axios from "axios";
 import {parseHistoryTransaction} from "./utils/parsers";
 
 export class KusamaAdapter extends BaseAdapter{
-    async history() {
+    async history({chain,token,key,evm}) {
         return new Promise(async  (resolve,reject)=>{
             axios.post(this.configs.cache + 'https://kusama.api.subscan.io/api/scan/transfers', {
                 'X-API-Key': key

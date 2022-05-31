@@ -4,7 +4,7 @@ import {getTransactionDirection} from "../../utils";
 import {parseHistoryTransaction} from "./utils/parsers";
 
 export class BitcoinAdapter extends BaseAdapter {
-    async history({token, key, evmData}) {
+    async history({chain,token, key, evmData}) {
         return new Promise(async (resolve, reject) => {
             axios
                 .get(

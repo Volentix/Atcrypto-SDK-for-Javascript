@@ -6,7 +6,7 @@ export class SolScanAdapter extends BaseAdapter{
     constructor(configs) {
         super(configs);
     }
-    async history({token,key,data}) {
+    async history({chain,token,key,data}) {
         return new Promise(async (resolve, reject) => {
             axios.get(this.configs.cache + 'https://api.solscan.io/account/transaction?address=' + key)
                 .then(result=> {

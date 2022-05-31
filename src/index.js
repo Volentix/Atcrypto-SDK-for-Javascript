@@ -1,22 +1,30 @@
 import {adapterFactory} from "./adapters";
 
-class ATCryptoConfig {
+export class ATCryptoConfig {
     constructor({
                     cache,
                     chainId,
                     eosHistoryApi,
                     demuxApi,
                     coinSwitvhApiKey,
-                    eEosTransactionExplorer,
-                    ethTransactionExplorer
+                    eosTransactionExplorer,
+                    ethTransactionExplorer,
+                    evmTokens={},
+                    evms=[],
+                    coins=[],
+                    tokens=[]
                 }) {
         this.cache = cache
         this.chainId = chainId
         this.eosHistoryApi = eosHistoryApi
         this.demuxApi = demuxApi
         this.coinSwitvhApiKey = coinSwitvhApiKey
-        this.eosTransactionExplorer = eEosTransactionExplorer
+        this.eosTransactionExplorer = eosTransactionExplorer
         this.ethTransactionExplorer = ethTransactionExplorer
+        this.evmTokens=evmTokens
+        this.evms=evms
+        this.coins=coins
+        this.tokens=tokens
     }
 
 
@@ -24,12 +32,17 @@ class ATCryptoConfig {
 
 
 export class ATCrypto {
-    constructor() {
-        console.log("hello")
+    constructor(configs) {
+        this.configs=configs
     }
 
     async history(chain, key, token, data = null){
-        const adapter=adapterFactory(chain)
-        return adapter.history()
+        const adapter=adapterFactory(chain,this.configs)
+        return adapter.history({
+            chain:chain,
+            key:key,
+            token:token,
+            data:data
+        })
     }
 }

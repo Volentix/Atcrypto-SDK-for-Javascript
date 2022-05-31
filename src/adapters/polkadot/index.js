@@ -4,7 +4,7 @@ import {DateTime} from "luxon/build/es6/luxon";
 import {parseHistoryTransaction} from "./utils/parsers";
 
 export class PolkadotAdapter extends BaseAdapter{
-    async history({token,key}) {
+    async history({chain,token,key}) {
         return new Promise(async (resolve, reject) => {
             axios.post('https://cache.volentix.io/https://polkadot.api.subscan.io/api/scan/transfers', {
                 'X-API-Key': key

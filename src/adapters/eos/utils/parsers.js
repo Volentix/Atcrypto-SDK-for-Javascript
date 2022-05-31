@@ -1,6 +1,6 @@
 import {getTransactionDirection} from "../../../utils";
 
-export function parseHistoryTransaction(item,token,key){
+export function parseHistoryTransaction(item,token,key,adapter){
     // //console.log('split', a.action_trace.act.name === 'transfer' ? a.action_trace.act.data.quantity.toString().split(' ')[1].toLowerCase() : 'not transfer')
     let transaction = {}
     if (token === 'eos' && (
@@ -19,9 +19,6 @@ export function parseHistoryTransaction(item,token,key){
                 amount = item.action_trace.act.data.to !== key ? '-' + item.action_trace.act.data.loan_payment : item.action_trace.act.data.loan_payment
                 break
         }
-
-
-
         let date = new Date(item.block_time)
         transaction.timeStamp = date.getTime() / 1000
         transaction.chain = token
@@ -31,14 +28,13 @@ export function parseHistoryTransaction(item,token,key){
         transaction.explorerLink = 'https://bloks.io/transaction/' + transaction.hash
         transaction.from = transaction.friendlyFrom = item.action_trace.act.data.from
         transaction.time = date.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
-        transaction.image = "" //self.getTokenImage(amount.split(' ')[1]) //todo replace it to different structure by removing store of vuejs
+        transaction.image = adapter.getTokenImage(amount.split(' ')[1])
         transaction.amount = amount.split(' ')[0]
         transaction.memo = item.action_trace.act.data.memo
         transaction.symbol = amount.split(' ')[1]
         transaction.direction = getTransactionDirection(transaction.from, transaction.to, key)
         transaction.dateFormatted = date.toISOString().split('T')[0]
         transaction.amountFriendly = parseFloat(Math.abs(transaction.amount)).toFixed(6)
-
     }
     return transaction
 }

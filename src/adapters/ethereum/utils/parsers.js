@@ -1,6 +1,6 @@
 import Web3 from "web3";
 
-export function parseHistoryTransaction(item,token,key,evmData){
+export function parseHistoryTransaction(item,token,key,evmData,chain,configs){
     let transaction = {}
 
     let date = new Date(item.block_signed_at)
@@ -16,12 +16,11 @@ export function parseHistoryTransaction(item,token,key,evmData){
             transaction.amount = Web3.utils.fromWei(transaction.amount.toString(), 'ether')
             transaction.symbol = 'N/A'
             transaction.image = ''
-            //todo remove to some that does not involve using store
-            // if (store.state.tokens.evmTokens[chain]) {
-            //     let foundToken = store.state.tokens.evmTokens[chain].find(o => o.address === a.to_address)
-            //     tx.symbol = foundToken ? foundToken.symbol : tx.symbol
-            //     tx.image = foundToken ? foundToken.logoURI : tx.image
-            // }
+            if (configs.evmTokens[chain]) {
+                let foundToken = configs.evmTokens[chain].find(o => o.address === item.to_address)
+                transaction.symbol = foundToken ? foundToken.symbol : transaction.symbol
+                transaction.image = foundToken ? foundToken.logoURI : transaction.image
+            }
         }
     }
     if (!decodedBlock) {
