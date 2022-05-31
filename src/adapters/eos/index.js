@@ -4,7 +4,7 @@ import {getTransactionDirection} from "../../utils";
 import {parseHistoryTransaction} from "./utils/parsers";
 
 export class EosAdapter extends BaseAdapter{
-    async history({token,key,data}) {
+    async history({chain,token,key,data}) {
         return new Promise(async (resolve, reject) => {
             axios.post(this.configs.cache + this.configs.eosHistoryApi + '/v1/history/get_actions', {
                 'account_name': key,
@@ -13,7 +13,7 @@ export class EosAdapter extends BaseAdapter{
             })
                 .then(result=> {
                     if (result.length !== 0) {
-                        const history=result.data.actions.reverse().map(item => parseHistoryTransaction(item,token,key))
+                        const history=result.data.actions.reverse().map(item => parseHistoryTransaction(item,token,key,this))
                         resolve({
                             history: history
                         })

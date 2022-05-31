@@ -4,9 +4,9 @@ import {parseHistoryTransaction} from "./utils/parsers";
 
 
 export class EthereumAdapter extends BaseAdapter{
-    async history({key,token,evm}){
+    async history({chain,token,key,evm}){
         return new Promise(async (resolve, reject) => {
-            const evmData = {} //self.getEvmData(token) //todo replace it more some where centralized type
+            const evmData = this.configs.getEvmData(token)
             axios
                 .get(
                     this.configs.cache +
@@ -16,7 +16,9 @@ export class EthereumAdapter extends BaseAdapter{
                 )
                 .then(res => {
                     if (res.data.data.items) {
-                        const history = res.data.data.items.filter(element => element.successful).map((item) => parseHistoryTransaction(item,token,key,evmData))
+                        const history = res.data.data.items.filter(
+                            element => element.successful
+                        ).map((item) => parseHistoryTransaction(item,token,key,evmData,chain,this.configs))
                         resolve({
                             history: history
                         })

@@ -58,9 +58,9 @@ const CHAIN_ADAPTERS={
 
 }
 
-export function adapterFactory(chain) {
+export function adapterFactory(chain,configs) {
     const chainInfo=CHAIN_ADAPTERS[chain]
     if (chainInfo){
-        return new chainInfo.adapter()
+        return new chainInfo.adapter(configs)
     }
 }
